@@ -1,6 +1,28 @@
-#
+# Personalized Face Inpainting with Diffusion Models by Parallel Visual Attention (WACV2024)
 
-# Training
+Jianjin Xu, Saman Motamed, Praneetha Vaddamanu, Chen Henry Wu, Christian Haene, Jean-Charles Bazin, Fernando de la Torre
+
+![pipeline](static/teaser.png)
+
+## CelebAHQ-IDI Dataset
+
+CelebAHD IDentity Preserving Inpainting (CelebAHQ-IDI) dataset is organized from original CelebAHQ dataset, also with language annotations from CelebA-Dialog dataset.
+The statistics of this dataset is shown in the table below.
+`#Ref` refers to the number of reference images available.
+For example, `#Ref=1` means that for each identity, there are two or more images and one image is used as reference and the rest are for inference.
+
+This dataset can not only be used to train and evaluate identity-preserving inpainting, but also train and evaluate personalized generative models, such as Stable Diffusion with Textual Inversion and LoRA, etc.
+
+The dataset can be obtained from [Google Drive](https://drive.google.com/drive/folders/1WIds-CixO_2obprhuyatWB8m1y9D0_Zn?usp=sharing).
+
+![statistics](static/table.png)
+
+## Setup
+
+- Install requirements.
+- Download the dataset and uncompress it under `data/` folder.
+
+## Training
 
 We support multi-GPU parallelization with huggingface accelerate.
 
@@ -20,6 +42,3 @@ python script/submit.py --func cdi_train --gpu <0/1>
 python script/finetune.py --config config/SDI2_PVA_FT.json --resume expr/celebahq/PVA/stage2/
 ```
 
-# Acknowledgement
-
-The `Lion` implementation is provided by [Google](https://github.com/google/automl/tree/master/lion).
