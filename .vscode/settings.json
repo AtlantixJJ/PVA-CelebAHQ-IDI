@@ -1,0 +1,8 @@
+{
+    "python.autoComplete.extraPaths": [
+        "thirdparty/diffusers/src"
+    ],
+    "python.analysis.extraPaths": [
+        "thirdparty/diffusers/src"
+    ]
+}

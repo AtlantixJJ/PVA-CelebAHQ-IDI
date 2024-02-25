@@ -1,0 +1,87 @@
+{
+    "output_dir": "",
+    "cache_dir": "pretrained",
+    "pretrained_model_name_or_path": "stabilityai/stable-diffusion-2-inpainting",
+    "memory_saving": 0,
+
+    "normal_words": "a person",
+    "personalized_words": "a <new1> person",
+
+    "_text_in_all": ["ID", "CLIP-S", "Token", "None"],
+    "_text_out_all": ["ID", "CLIP-A", "None"],
+
+    "text_in": "Token",
+    "text_out": "ID",
+
+    "loss": {
+        "ID": 0,
+        "DSM": 1.0
+    },
+
+    "data": {
+        "resolution": 512,
+        "data_dir": "data/celebahq"
+    },
+
+    "optimizer": {
+        "lr": 1e-5,
+        "weight_decay": 0.01
+    },
+
+    "lr_scheduler": {
+        "num_warmup_steps": 0,
+        "name": "constant_with_warmup"
+    },
+
+    "training": {
+        "condition_drop_prob": 0,
+        "batch_size": 1,
+        "num_time_resample": 4,
+        "gradient_accumulation_steps": 4,
+        "max_train_steps": 20,
+        "output_dir": "expr/celebahq/CrossQKV_FT20"
+    },
+
+    "sampling": {
+        "_all_modules": ["dpmsolver", "ddim"],
+        "sampler": "ddim"
+    },
+
+    "modifier_token": {
+        "init_token": "ktn+pll+ucd",
+        "mode": "single_token",
+        "name": "<new1>",
+        "num_tokens": 1,
+        "dim": 1024,
+        "lr": 1e-3
+    },
+
+    "id_trans_net": {
+        "fix": 1,
+        "arch": {
+            "in_dim": 512,
+            "out_dim": 1024,
+            "num_layer": 4,
+            "num_q_token": 10
+        },
+        "training": {
+            "lr": 1.6e-5
+        }
+    },
+
+    "clip_image_enc": {
+        "_tune_params_all": ["QKV", "KV", "All", "None", "Proj"],
+        "tune_params": "None"
+    },
+
+    "unet": {
+        "_tune_params_all": ["PVA", "CrossQKV", "QKV", "KV", "All", "None"],
+        "attention": "PVA",
+        "tune_params": "CrossQKV"
+    },
+
+    "face_net": {
+        "_tune_params_all": ["All", "None"],
+        "tune_params": "None"
+    }
+}
